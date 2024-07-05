@@ -1,0 +1,178 @@
+<div *ngIf="prenotazioni">
+    <div class="container mt-5">
+
+        <div class="row mb-5">
+            <div class="d-flex align-items-center">
+                <h2 class="my-4 me-5">Prenotazioni</h2>
+                <button type="button" class="btn_3" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">Aggiungi</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Header Row -->
+            <div class="row d-none d-lg-flex border-bottom p-4">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-2 fw-bold">Nome ospite</div>
+                <div class="col-lg-1 text-lg-center fw-bold">Adulti</div>
+                <div class="col-lg-1 text-lg-center fw-bold">Bambini</div>
+                <div class="col-lg-2 fw-bold">Check-in</div>
+                <div class="col-lg-2 fw-bold">Check-out</div>
+                <div class="col-lg-1 text-lg-center fw-bold">Costo</div>
+                <div class="col-lg-1 text-lg-center fw-bold">Piattaforma</div>
+            </div>
+
+            <!-- Data Rows -->
+            <div class="row d-flex flex-md-row flex-sm-column border-bottom p-4 align-items-lg-center"
+                *ngFor="let prenotazione of prenotazioni">
+                <div class="col-lg-2 mb-2 mb-lg-0 d-none d-lg-flex   ">
+                    <button [routerLink]="['/prenotazioni', prenotazione.id]" class="btn_2" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">Modifica</button>
+                </div>
+
+                <div class="col-lg-2 fw-bold">
+                    <span class="d-lg-none">Nome ospite: </span>
+                    <span class="fw-normal">{{ prenotazione.nomeCliente }}</span>
+                </div>
+
+                <div class="col-lg-1 text-lg-center fw-bold">
+                    <span class="d-lg-none">Adulti: </span>
+                    <span class="fw-normal">{{ prenotazione.adulti }}</span>
+                </div>
+
+                <div class="col-lg-1 text-lg-center fw-bold">
+                    <span class="d-lg-none">Bambini: </span>
+                    <span class="fw-normal">{{ prenotazione.bambini }}</span>
+                </div>
+
+                <div class="col-lg-2 fw-bold">
+                    <span class="d-lg-none">Check-in: </span>
+                    <span class="fw-normal">{{ formatData(prenotazione.checkIn) }}</span>
+                </div>
+
+                <div class="col-lg-2 fw-bold">
+                    <span class="d-lg-none">Check-out: </span>
+                    <span class="fw-normal">{{ formatData(prenotazione.checkOut) }}</span>
+                </div>
+
+                <div class="col-lg-1 text-lg-center fw-bold">
+                    <span class="d-lg-none">Costo: </span>
+                    <span class="fw-normal">{{ prenotazione.costoSoggiorno | number:'1.2-2' }}</span>
+                </div>
+
+                <div class="col-lg-1 text-lg-center fw-bold">
+                    <span class="d-lg-none">Piattaforma: </span>
+                    <span class="fw-normal">{{ prenotazione.piattaforma }}</span>
+                </div>
+
+                <div class="col-lg-2 mt-2 mb-lg-0 d-flex d-lg-none">
+                    <button [routerLink]="['/prenotazioni', prenotazione.id]" class="btn_2" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">Modifica</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <h5 class="text-center mt-3" id="">Aggiungi Prenotazione</h5>
+
+            <div class="modal-body">
+                <form #newClienteForm="ngForm" (ngSubmit)="addCliente(newClienteForm)">
+
+                    <div class="row">
+                        <div class="col-8">
+
+                            <div class="row my-3 border-bottom p-3">
+                                <div class="col-4">
+                                    <label for="nomeCliente" class="form-label fw-bold">Nome ospite</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="nomeCliente" name="nomeCliente" ngModel
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row my-3 border-bottom p-3">
+                                <div class="col-4">
+                                    <label for="adulti" class="form-label fw-bold">Adulti</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" class="form-control" id="adulti" name="adulti" ngModel
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row my-3 border-bottom p-3">
+                                <div class="col-4">
+                                    <label for="bambini" class="form-label fw-bold">Bambini</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" class="form-control" id="bambini" name="bambini" ngModel
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row my-3 border-bottom p-3">
+                                <div class="col-4">
+                                    <label for="checkIn" class="form-label fw-bold">Check-in</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="date" class="form-control" id="checkIn" name="checkIn" ngModel
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row my-3 border-bottom p-3">
+                                <div class="col-4">
+                                    <label for="checkOut" class="form-label fw-bold">Check-out</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="date" class="form-control" id="checkOut" name="checkOut" ngModel
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row my-3 border-bottom p-3">
+                                <div class="col-4">
+                                    <label for="costoSoggiorno" class="form-label fw-bold">Costo soggiorno</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" class="form-control" id="costoSoggiorno" name="costoSoggiorno"
+                                        ngModel required>
+                                </div>
+                            </div>
+
+                            <div class="row my-3 border-bottom p-3">
+                                <div class="col-4">
+                                    <label for="piattaforma" class="form-label fw-bold">Piattaforma</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="piattaforma" name="piattaforma" ngModel
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12"></div>
+                                <div class="col-3">
+                                    <button type="submit" class="ms-1 btn_3 mb-3" data-bs-dismiss="modal"
+                                        data-bs-toggle="modal">Aggiungi</button>
+                                    <button type="button" class="ms-1 btn_2" data-bs-dismiss="modal">Chiudi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
